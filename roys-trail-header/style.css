@@ -1,0 +1,260 @@
+/*
+Theme Name:     Roys Trail Header 
+Theme URI:      http://plugins.royweil.com/trailheader
+Description:    Provides: a three section header -logo, title, picture-, || a free-wheeling easy footer, || a Google Translate footer, || enforces the expanded ribbon the the MCE editor || Mess with WP File Manger to allow only uploads to /upload || increase max file size to 64MB || 404 message 
+Author:         Roy Weil
+Author URI:     http: //plugins.royweil.com/trailheader
+Template:       twentythirteen
+Version: 1.1.16
+ <!--
+					this is Roy Weil's standard Trail header
+ 	1.1.15
+		removed comments from all pages - page.php
+		Added **** comment lines between various sections
+	1.1.14
+		Added source code to change email name/address from "Word Press" on notifications - function.php
+	1.1.xx
+		added ccheck for plugin freewheelingeasymap plugin before including script - header.php
+	1.1.10
+		added update version check on Roy Trail header function.php
+ *
+ *	to use: do the following
+ *	Under "appearance", "customize", "Header Image" upload the left hand header logo
+ *	   at a height of about 150
+ *	Under "appearance", "customize", "Site Identity" enter header text
+ *	Upload right hand header images to the directory wp-content/upload/Top-Banner-Images
+ *
+ *   Commonly used plugins:
+ * 	Google Translate plugin
+ *      Google Analytics for WordPress
+ *	Google XML sitemap
+ *      iThemes Sync
+ *	UpdraftPlus - Backup/Restore
+ *
+ *   Other plugins that might be used
+ *	freewheeling map
+ *	Mmm Simple File/Category Lister
+ *	Seamless Donations
+ *	Seamless Donations Custom 
+ *	Table Press
+ *	WordPress Meta Robots
+ *	WP File Manager
+ */
+
+@import url("../twentythirteen/style.css");
+
+/* 
+some body margin
+Tighten up default table, menus
+Header title to match Erie logo color, font
+*/
+
+body {
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-size: 14px;
+}
+
+.entry-title {
+    	font-weight: bold;
+    	font-size: 24px;
+#	margin-left: 10px;
+}
+.entry-header,
+.entry-content,
+.entry-summary,
+.entry-meta {
+	margin-bottom: 0px;
+	width:auto;
+	max-width:none;
+}
+.entry-content
+{
+#	float:left;
+	margin-left:10px;
+	width:auto;
+}
+.entry-content a:link
+{
+	color:#0000FF;
+}
+.entry-content a:visited
+{
+	color:#0000FF;
+}
+.entry-content a:hover
+{
+	text-decoration:underline;
+	color:#EA9629;
+}
+.entry-content .external
+{
+background-position: right center;
+background-repeat: no-repeat;
+background-image: linear-gradient(transparent, transparent), url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2210%22%20height%3D%2210%22%3E%3Cg%20transform%3D%22translate%28-826.429%20-698.791%29%22%3E%3Crect%20width%3D%225.982%22%20height%3D%225.982%22%20x%3D%22826.929%22%20y%3D%22702.309%22%20fill%3D%22%23fff%22%20stroke%3D%22%2306c%22%2F%3E%3Cg%3E%3Cpath%20d%3D%22M831.194%20698.791h5.234v5.391l-1.571%201.545-1.31-1.31-2.725%202.725-2.689-2.689%202.808-2.808-1.311-1.311z%22%20fill%3D%22%2306f%22%2F%3E%3Cpath%20d%3D%22M835.424%20699.795l.022%204.885-1.817-1.817-2.881%202.881-1.228-1.228%202.881-2.881-1.851-1.851z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+padding-right: 13px;
+
+}
+.entry-content img.alignleft, .entry-content .wp-caption.alignleft {
+    margin-left: 0px;
+}
+.entry-content h1
+{
+    display: inline;
+}
+h1, h2, h3, h4, h5, h6 {
+    clear: both;
+    font-family: Aerial,sans-serif;
+    font-weight: bold;
+    line-height: 1.3;
+}
+
+p
+{
+    margin-bottom: 12px;
+}
+
+table
+{
+	line-height: 1;		 /* over rides the table 2.0 */
+}
+td, th {
+	vertical-align:top;
+	line-height: 1;		 /* over rides the table 2.0 */
+	border:0;
+	padding:0;
+	height:20px;
+}
+caption {
+	vertical-align:top;
+	line-height: 1;		 /* over rides the table 2.0 */
+	border:0;
+	padding:0;
+	height:20px;
+}
+.site
+{
+	min-width:300px
+}
+.site-header .home-link 
+{
+	min-height: 130px;
+}
+.site-title {
+	color: #80293D;
+    	font-family: Aerial,sans-serif;
+}
+.site-info {
+	padding: 0;
+}
+.site-info .external
+{
+background-position: right center;
+background-repeat: no-repeat;
+background-image: linear-gradient(transparent, transparent), url("data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2210%22%20height%3D%2210%22%3E%3Cg%20transform%3D%22translate%28-826.429%20-698.791%29%22%3E%3Crect%20width%3D%225.982%22%20height%3D%225.982%22%20x%3D%22826.929%22%20y%3D%22702.309%22%20fill%3D%22%23fff%22%20stroke%3D%22%2306c%22%2F%3E%3Cg%3E%3Cpath%20d%3D%22M831.194%20698.791h5.234v5.391l-1.571%201.545-1.31-1.31-2.725%202.725-2.689-2.689%202.808-2.808-1.311-1.311z%22%20fill%3D%22%2306f%22%2F%3E%3Cpath%20d%3D%22M835.424%20699.795l.022%204.885-1.817-1.817-2.881%202.881-1.228-1.228%202.881-2.881-1.851-1.851z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+padding-right: 13px;
+}
+.site-paragraph-heading
+{
+        font-weight: bold;
+	font-size:larger;
+}
+
+.nav-menu li a 
+{
+	padding: 5px 10px;
+}
+.navbar {
+}
+.navigation:after
+{
+	display: none;
+}
+input[type="search"] {
+    width: 270px;
+}
+.search-form
+{
+    width:270px;
+}
+
+article
+{
+    display: inline;
+}
+.attachment .entry-meta,
+.attachment .entry-description,
+.paging-navigation .nav-links,
+.author-info,
+.page-content 
+.comments-title, 
+.comment-list, 
+.comment-navigation,
+.comment-reply-title, 
+.must-log-in,
+.comment-respond .comment-form,
+.comment-respond iframe,
+.sidebar .comments-title,
+.sidebar .comment-list,
+.sidebar .must-log-in,
+.sidebar .comment-reply-title,
+.sidebar .comment-navigation,
+.sidebar .comment-respond .comment-form 
+.comment-navigation 
+.site-main .mu_register, 
+.site-footer,
+.site-footer a
+{
+	width:auto;
+}
+
+.form-allowed-tags,
+.form-allowed-tags code 
+{
+	color: #6861008;
+}
+
+@media  {
+	.sidebar .entry-header,
+	.sidebar .entry-content,
+	.sidebar .entry-summary,
+	.sidebar .entry-meta,
+	.sidebar .comment-list,
+	.sidebar .comment-reply-title,
+	.sidebar .comment-navigation,
+	.sidebar .comment-respond .comment-form,
+	.sidebar .featured-gallery,
+	.sidebar .post-navigation .nav-links,
+	.author.sidebar .author-info 
+	.sidebar .site-info,
+	.search.sidebar .page-content,
+	.blog.sidebar .page-content,
+	.attachment .entry-header,
+	.sidebar .comments-title {
+		width:auto;
+	}
+}
+
+.trailsitefooter
+{
+    float:left;
+    padding-left:28px;
+    text-align:left;
+    background-color: #e8e5ce;
+}
+.trailsiteheader
+{
+    float:left;
+    padding-left:10px;
+    text-align:left;
+    background-color: #e8e5ce;
+}
+
+# Google translate styles
+#goog-gt-tt {display:none !important;}
+.goog-te-banner-frame {display:none !important;}
+.goog-te-menu-value:hover {text-decoration:none !important;}
+body {top:0 !important;}
+#google_translate_element2 {display:none!important;}
