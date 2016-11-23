@@ -2,12 +2,18 @@
 Theme Name:     Roys Trail Header 
 Theme URI:      http://plugins.royweil.com/trailheader
 Description:    Provides: a three section header -logo, title, picture-, || a free-wheeling easy footer, || a Google Translate footer, || enforces the expanded ribbon the the MCE editor || Mess with WP File Manger to allow only uploads to /upload || increase max file size to 64MB || 404 message 
-Author:         Roy Weil
-Author URI:     http: //plugins.royweil.com/trailheader
 Template:       twentythirteen
-Version: 1.1.20
+Version: 1.1.18
+Author:         Roy Weil
+Author URI:     http: //royweil.com
+Github URI:        https://github.com/rweil55/roys-trail-header
+License:           GPL-2.0+
+License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+
  <!--
 					this is Roy Weil's standard Trail header
+ 	1.1.18
+		added the GLLv2+ License
  	1.1.15
 		removed comments from all pages - page.php
 		Added **** comment lines between various sections

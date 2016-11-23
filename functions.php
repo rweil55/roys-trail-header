@@ -1,4 +1,11 @@
 <?PHP
+/*
+Author:         Roy Weil
+Author URI:     http: //royweil.com
+Github URI:        https://github.com/rweil55/roys-trail-header
+License:           GPL-2.0+
+License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+*/
 //	*******************************  Function to add more icons to the page editor page
 add_filter( 'tiny_mce_before_init', 'rrw_trail_myformatTinyMCE' );
 function rrw_trail_myformatTinyMCE( $in ) {
@@ -66,4 +73,11 @@ $rrw_trail_replace_debug = false;
 			}
 		}
 }
+// do the update check in a Word Press Plugin Server
+require 'theme_update_check.php';
+$MyUpdateChecker = new ThemeUpdateChecker(
+    'roys-trail-header',
+    'https://kernl.us/api/v1/theme-updates/581b74d414f158048efcf64c/'
+);
+// $MyUpdateChecker->purchaseCode = "somePurchaseCode";  <---- Optional!
 ?>
