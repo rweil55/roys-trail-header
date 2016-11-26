@@ -1,11 +1,14 @@
 /*
 Theme Name:     Roys Trail Header 
 Theme URI:      http://plugins.royweil.com/trailheader
+https://github.com/rweil55/roys-trail-header
 Description:    Provides: a three section header -logo, title, picture-, || a free-wheeling easy footer, || a Google Translate footer, || enforces the expanded ribbon the the MCE editor || Mess with WP File Manger to allow only uploads to /upload || increase max file size to 64MB || 404 message 
 Author:         Roy Weil
-Author URI:     http: //plugins.royweil.com/trailheader
-Template:       twentythirteen
-Version: 1.1.20
+Author URI:     http://plugins.royweil.com/roys-trail-header
+License:           GPLv3+
+License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+Text Domain:       wp-file-searchTemplate:       twentythirteen
+Version: 1.1.16
  <!--
 					this is Roy Weil's standard Trail header
  	1.1.15
@@ -18,7 +21,7 @@ Version: 1.1.20
 	1.1.10
 		added update version check on Roy Trail header function.php
  *
- *	to use: do the following
+ *	to use this theme: do the following
  *	Under "appearance", "customize", "Header Image" upload the left hand header logo
  *	   at a height of about 150
  *	Under "appearance", "customize", "Site Identity" enter header text
@@ -26,9 +29,9 @@ Version: 1.1.20
  *
  *   Commonly used plugins:
  * 	Google Translate plugin
- *      Google Analytics for WordPress
+ *  Google Analytics for WordPress
  *	Google XML sitemap
- *      iThemes Sync
+ *  iThemes Sync
  *	UpdraftPlus - Backup/Restore
  *
  *   Other plugins that might be used
@@ -38,6 +41,7 @@ Version: 1.1.20
  *	Seamless Donations Custom 
  *	Table Press
  *	WordPress Meta Robots
+ *  Add Meta Tags
  *	WP File Manager
  */
 
