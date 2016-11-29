@@ -1,16 +1,26 @@
 /*
 Theme Name:     Roys Trail Header 
-Theme URI:      http://plugins.royweil.com/trailheader
+Theme URI:      http://plugins.royweil.com/roys-trail-header
 https://github.com/rweil55/roys-trail-header
 Description:    Provides: a three section header -logo, title, picture-, || a free-wheeling easy footer, || a Google Translate footer, || enforces the expanded ribbon the the MCE editor || Mess with WP File Manger to allow only uploads to /upload || increase max file size to 64MB || 404 message 
 Author:         Roy Weil
 Author URI:     http://plugins.royweil.com/roys-trail-header
 License:           GPLv3+
 License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
-Text Domain:       wp-file-searchTemplate:       twentythirteen
-Version: 1.1.16
+Template:       twentythirteen
+Version: 1.1.21
  <!--
 					this is Roy Weil's standard Trail header
+	1.1.21
+		Removed header pictures when accessed from a mobile phone 
+	1.1.20
+		Fix in themes/functions to get the correct modifications to wp_file_manager 
+	1.1.19
+		Fixed the banner picture search to work with multisite
+	1.1.18
+		added the update checker in the function routine
+	1.1.16
+		Added the GPLv3+ licnese, added some comments				
  	1.1.15
 		removed comments from all pages - page.php
 		Added **** comment lines between various sections
@@ -41,7 +51,7 @@ Version: 1.1.16
  *	Seamless Donations Custom 
  *	Table Press
  *	WordPress Meta Robots
- *  Add Meta Tags
+ *  	Add Meta Tags
  *	WP File Manager
  */
 

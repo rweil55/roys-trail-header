@@ -1,5 +1,5 @@
 <?php
-	@ini_set( 'upload_max_size' , '64M' );
+@ini_set( 'upload_max_size', '64M' );
 /**
  * The Header template for our theme
  *
@@ -33,7 +33,8 @@
  *	WordPress Meta Robots
  *	WP File Manager
  */
-?><!DOCTYPE html >
+?>
+<!DOCTYPE html >
 <!--[if IE 7]>
 <html class="ie ie7" <?php language_attributes(); ?>>
 <![endif]-->
@@ -43,6 +44,7 @@
 <!--[if !(IE 7) | !(IE 8)  ]><!-->
 <html <?php language_attributes(); ?>>
 <!--<![endif]-->
+
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width">
@@ -54,12 +56,12 @@
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
 	<![endif]-->
 
-<?php
-// determine if this site will me displaying the freewheeling easy map
-$rrw_trail_pluginDir = WP_CONTENT_DIR . "/plugins/freewheelingeasymap";
-if (is_dir($rrw_trail_pluginDir) ) {
-	// will do map display, so include some javascript
-	print "
+	<?php
+	// determine if this site will me displaying the freewheeling easy map
+	$rrw_trail_pluginDir = WP_CONTENT_DIR . "/plugins/freewheelingeasymap";
+	if ( is_dir( $rrw_trail_pluginDir ) ) {
+		// will do map display, so include some javascript
+		print "
 <script type='text/javascript' 
     src='https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyBsapjBVkpVG7skmQo62Iu_BVE977Oan24'></script>
 <script type='text/javascript' 
@@ -67,96 +69,129 @@ if (is_dir($rrw_trail_pluginDir) ) {
 <script type='text/javascript' 
     src='/wp-content/plugins/freewheelingeasymap/markercluster.js' > </script>
 	";
-}
- wp_head(); 
- 
-?>
+	}
+	wp_head();
+
+	?>
 </head>
 
 <body <?php body_class(); ?>>
 	<div id="page" class="hfeed site">
-<!--  ==================================================================================================== header -->
-		<header id="masthead"  style="text-align:left;" >
-<a class="screen-reader-text skip-link" href="#content" title="<?php esc_attr_e( 'Skip to content', 'twentythirteen' ); ?>"><?php _e( 'Skip to content', 'twentythirteen' ); ?></a>
-           <table style="min-height: 30px; border:2px" role="presentation" 
+		<!--  ==================================================================================================== header -->
+		<header id="masthead" style="text-align:left;">
+			<a class="screen-reader-text skip-link" href="#content" title="<?php esc_attr_e( 'Skip to content', 'twentythirteen' ); ?>">			
+<?php _e( 'Skip to content', 'twentythirteen' );	
+print "</a>\n";
+$browser = $_SERVER['HTTP_USER_AGENT'];
+if (strpos($browser, "Mobile") > 0 )
+{
+    $desktop = false;
+    $mobile = true;
+}else {
+    $desktop = true;
+    $mobile = false;
+}	
+    print '<table style="min-height: 30px; border:2px" role="presentation" 
 			title="used for layout of the top header" >
-           	 <tr>
-                <td>&nbsp;</td><td>
-<a class="home-link" href="<?php echo esc_url( home_url( '/' ) ); ?>" 
-                             title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-<img src="<?php header_image(); ?>" 
-		alt="<?php bloginfo( 'name' ); ?> logo"
-		class="alignnone size-full" /></a>
-                    </td><td style="text-align:center; border:thin;">
-                        <a class="home-link" href="<?php echo esc_url( home_url( '/' ) ); ?>" 
-                             title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-                        <h1 class="site-title"><?php bloginfo( 'name' ); ?></h1>
-                        <h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
-                        </a>
-                </td>
-                <td>
-<?php 
-
-$thumblist = rrw_trail_GetBannerPhotoList(); 
-if (! is_array($thumblist) )
-{
-	print "<td>$thumblist</td>";
-}
-else
-{
-	$photoIdx = mt_rand(0, count($thumblist) - 1 );
-	$photo = $thumblist[$photoIdx];
-	print "
-		<td > <!-- $photoIdx/" . count($thumblist) . " -->
-                    <img  height='150' alt='Picture along the trail'
-                    src='$photo'  ></td> ";
-}
-?>              
-              </tr>
-           </table > 
-<!--  ==================================================================================================== nav bar -->
-                <div id="navbar" class="navbar">
-                    <nav id="site-navigation" class="navigation main-navigation" >
-                    <table role="presentation" title="used for layout of the navigation bar">
-		    <tr><td>
-                        <h3 class="menu-toggle"><?php _e( 'Menu', 'twentythirteen' ); ?></h3>
-                        <a class="screen-reader-text skip-link" href="#content" title="<?php esc_attr_e( 'Skip to content', 'twentythirteen' ); ?>"><?php _e( 'Skip to content', 'twentythirteen' ); ?></a>
-                        <?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'nav-menu' ) ); ?></td><td style="text-align:right" >
-						<?php  get_search_form(); ?>
-    		    </td></tr>
-		    </table> 
-                    </nav><!-- #site-navigation -->
-                </div><!-- #navbar -->
-		</header><!-- #masthead -->
-
-<!--  ==================================================================================================== main content -->
-		<div id="main" class="site-main">
-<?PHP
-function rrw_trail_GetBannerPhotoList()
-{	
-/*	returns a list of files that are in the directory specified by the Settings/Trail Header 
- *	or returns a text string error message to be displayed.
- *	coded by Roy Weil 2016 May 14
- */
-	$dir = "uploads/Top-Banner-Images/";
-	$path = WP_CONTENT_DIR  . "/$dir";
-	if (! is_dir($path)) {
-		return "use WP File Manager to create<br />the /$dir directory<br />
-		<!-- $path --> \n ";
-	}
-	if (! $dh = opendir($path))
-		return "use WP File Manager to fix<br />/$dir directory<br />
-		<!-- $path --> \n";
- 	$thumbList = array();
-        while (($file = readdir($dh)) !== false) {
-            	$typeOfEntry =  filetype($path . $file);
-			if (strcmp($typeOfEntry, "file") == 0) 
-				$thumbList[] = "/wp-content/$dir/$file";
-        }
-    closedir($dh);
-		
- 	if (count($thumbList) <= 0) { 
-		return  "use WP File Manager to add images<br />to $dir directory<br />\n";
+					<tr>
+';
+	$image = get_header_image();
+	$siteUrl = site_url();
+	$homeName = esc_attr( get_bloginfo( 'name', 'display' ) );
+	if ( $desktop ) {
+		print "
+		<td>&nbsp;</td><td>
+		<a class='home-link' href='$siteUrl' title='$homeName' rel='home'>
+					<img src='$image' alt='$homeName logo' class='alignnone size-full'/>
+				</a>						
+						</td>
+			";
 	}	
-	return $thumbList;
-}
+	print "			<td style='text-align:center; border:thin;'>
+				<a class='home-link' href='$siteUrl' title='$homeName' rel='home'>
+					<h1 class='site-title'>$homeName</h1>
+					<h2 class='site-description'>";
+	bloginfo( 'description' );
+	print "</h2>
+							</a>
+						</td>
+						<td>
+		";
+	if ( $desktop ) {
+	$thumblist = rrw_trail_GetBannerPhotoList(); 
+		if ( !is_array( $thumblist ) ) {
+			print "
+				<td>$thumblist</td>";
+		} else {
+		$photoIdx = mt_rand(0, count($thumblist) - 1 );
+		$photo = $thumblist[$photoIdx];
+		print "
+				<td>
+					<!-- $photoIdx" . count( $thumblist ) . " -->
+					<img height='150' alt='Picture along the trail' src='$photo'>
+				</td>
+				";
+		}
+	}
+	print '
+              </tr>
+				</table>';
+ ?>
+							<!--  ==================================================================================================== nav bar -->
+							<div id="navbar" class="navbar">
+								<nav id="site-navigation" class="navigation main-navigation">
+									<table role="presentation" title="used for layout of the navigation bar">
+										<tr>
+											<td>
+												<h3 class="menu-toggle">
+													<?php _e( 'Menu', 'twentythirteen' ); ?>
+												</h3>
+												<a class="screen-reader-text skip-link" href="#content" title="<?php esc_attr_e( 'Skip to content', 'twentythirteen' ); ?>">
+													<?php _e( 'Skip to content', 'twentythirteen' ); ?>
+												</a>
+												<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'nav-menu' ) ); ?>
+											</td>
+											<td style="text-align:right">
+												<?php  get_search_form(); ?>
+											</td>
+										</tr>
+									</table>
+								</nav>
+								<!-- #site-navigation -->
+							</div>
+							<!-- #navbar -->
+		</header>
+		<!-- #masthead -->
+
+		<!--  ==================================================================================================== main content -->
+		<div id="main" class="site-main">
+			<?PHP
+
+			function rrw_trail_GetBannerPhotoList() {
+				/*	returns a list of files that are in the directory specified by the Settings/Trail Header 
+				 *	or returns a text string error message to be displayed.
+				 *	coded by Roy Weil 2016 May 14
+				 */
+				$dir = "/Top-Banner-Images/";
+				$pathArray = wp_upload_dir();
+				$path = $pathArray[ "basedir" ] . $dir;
+				if ( !is_dir( $path ) ) {
+					return "use WP File Manager to create<br />the /$dir directory<br />
+		<!-- $path --> \n ";
+				}
+				if ( !$dh = opendir( $path ) )
+					return "use WP File Manager to fix<br />/$dir directory<br />
+		<!-- $path --> \n";
+				$thumbList = array();
+				while ( ( $file = readdir( $dh ) ) !== false ) {
+					$typeOfEntry = filetype( $path . $file );
+					if ( strcmp( $typeOfEntry, "file" ) == 0 )
+						$thumbList[] = $pathArray[ "baseurl" ] . "/$dir/$file";
+				}
+				closedir( $dh );
+
+				if ( count( $thumbList ) <= 0 ) {
+					return "use WP File Manager to add images<br />to $dir directory<br />\n";
+				}
+				return $thumbList;
+			}
