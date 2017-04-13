@@ -9,9 +9,25 @@
  * @package WordPress
  * @subpackage Twenty_Thirteen
  * @since Twenty Thirteen 1.0
+ 
+ 1.1.2
+ 	added code to diplay the copyright notice on the sides of the page
+ 1.1.1
+ 	dded displays of astericks around the header comments and footer.
  */
+$pluginUrl =get_permalink();
+if (strpos($pluginUrl, "freewheeling") === false)
+	$copyrightOnSides = false;
+else
+	$copyrightOnSides = true;
 get_header(); ?>
-
+<?PHP	if ($copyrightOnSides) {
+			print "<table border=4 >
+	<tr><td style='background-image:url(\"images/left%20margin.jpg\"); background-repeat:repeat-y; 
+					width:20px; boreder:2 ' >&nbsp;
+			</td><td>";
+}
+?>
 	<div id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
 
@@ -24,10 +40,13 @@ get_header(); ?>
 						<div class="entry-thumbnail">
 							<?php the_post_thumbnail(); ?>
 						</div>
-						<?php endif; ?>
-
-						<h1 class="entry-title"><?php the_title(); ?></h1>
-					</header><!-- .entry-header -->
+						<?php endif;
+						if ( ! $copyrightOnSides) {
+							print '<h1 id="entryTitleDisplay" class="entry-title">';
+							the_title();
+							print '</h1>';
+						}
+?>					</header><!-- .entry-header -->
 
 					<div class="entry-content"> <!-- *************************************** Content -->
 						<?php the_content(); ?>
@@ -43,7 +62,14 @@ get_header(); ?>
 			<?php endwhile; ?>
 
 		</div><!-- #content -->
-	</div><!-- #primary -->
+<?PHP	if ($copyrightOnSides) {
+			print "</td><td style='background-image:url(\"images/right%20margin.jpg\"); 
+	background-repeat:repeat-y; width:20px;' >&nbsp;
+			</td></tr>
+		</table>";
+}
+?>	
+</div><!-- #primary -->
 
 <?php get_sidebar(); ?>
 <!-- *************************************** footer -->

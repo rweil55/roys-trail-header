@@ -8,9 +8,77 @@ Author URI:     http://plugins.royweil.com/roys-trail-header
 License:           GPLv3+
 License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
 Template:       twentythirteen
-Version: 1.1.21
+Version: 1.1.50
  <!--
 					this is Roy Weil's standard Trail header
+	1.1.50
+		removed teh load of sqill-eval.js in the header routine
+	1.1.49
+		removed the [ifPhotoHide] shortcut
+		added css of .hideOnSmallScreen to hide stuff on small screen
+		remove code for $desktop, $phone
+	1.1.48,49
+		modified the @media css, and header routines to eliminate masthead on small creens
+		added the [ifphonehide] shortcut.
+	1.1.47
+		added an is_exists to the sqlClean function in the utils
+	1.1.46
+		another attempt to fix the slash in the webmaster footer link, based on mulitsite.
+		added empty cell before and after "login" in the footer
+		Added the function ifphonehide($item) to hide imagebased on if the output is a phone
+		refactored functions.php to eliminate duplicate fucnction with the functionRweil_inc.php 
+	1.1.45
+		Added the functionRweil_inc.php routne for the rweilutil... routine
+		added write_log to functionRweil_inc.php 
+	1.1.43,44
+		refactor the gtranslate code in the footer
+		Added the libary functionsRweil_inc for some functions used throughout.
+	1.1.42
+		remove extra slash from Webmaster Feedback in the footer
+	1.1.40,41
+		Added teh fetch parameter routines
+	1.1.38,39
+		updated the header to enable display:none on the masthead pictures
+	1.1.37
+		Fixed footer test fro freewheeling easy map
+		Changed gtranslate in foorter to horizonal layout.
+`	1.1.36
+		Change footer code for gtranslate from code to a sortcode
+		Add and removed widgets in the footer
+	1.1.35
+		moved mapping java script setup to add_action(wp_head,...
+	1.1.34
+		put a delay on the tooltips
+		change to roy plugin server
+	1.1.33
+		added slash to footer webmaster_feedback link
+	1.1.32
+		Added tooltip css
+		changed all the # commnets tp /* commnets
+	1.1.31
+		Remove printout 1n 404 to stop error message
+		in 404 change space to dash
+		in 404 change underscore to dash
+		made translate references in the footer relative links
+		change http code from 302 -> 301,  temp-> permanent
+	1.1.30
+		clean up between local - remote
+	1.1.29
+		updated the 404 page to find the page if exists
+	1.1.28
+		Change the code for the update
+	1.1.27
+		Try again to get rid of the // on the banner pictures
+	1.1.26
+		if the basename of a file in the Top-Banner-Images matches a page "Title Name" 
+					rhen use that image rather than a randomly selected image.
+	1.1.24
+		another Modify the header pictre search to return only one / not two //
+	1.1.23
+		Modifed the header pictre search to return only one / not two //
+		changed footer to link to the webmaster Feedback page rather than get_involved/contat_us
+	1.1.22
+		Added the write_log function to functions.php
 	1.1.21
 		Removed header pictures when accessed from a mobile phone 
 	1.1.20
@@ -74,7 +142,7 @@ body {
 .entry-title {
     	font-weight: bold;
     	font-size: 24px;
-#	margin-left: 10px;
+/*	margin-left: 10px; */
 }
 .entry-header,
 .entry-content,
@@ -86,7 +154,7 @@ body {
 }
 .entry-content
 {
-#	float:left;
+/*	float:left;  */
 	margin-left:10px;
 	width:auto;
 }
@@ -225,7 +293,7 @@ article
 }
 
 .form-allowed-tags,
-.form-allowed-tags code 
+.form-allowed-tags code  
 {
 	color: #6861008;
 }
@@ -250,25 +318,57 @@ article
 		width:auto;
 	}
 }
-
-.trailsitefooter
-{
-    float:left;
-    padding-left:28px;
-    text-align:left;
-    background-color: #e8e5ce;
+/*  ---------------------------------- cause maasthead and classed stuff to disapper on small screens */
+@media (max-width: 400px), (max-height:400px){
+	#mastheadPhotos, .hideOnSmallScreen
+	{
+	display:none;
+	}
 }
+
 .trailsiteheader
 {
     float:left;
     padding-left:10px;
     text-align:left;
-    background-color: #e8e5ce;
+    background-color: red   /* #e8e5ce;  */
 }
 
-# Google translate styles
+/* Google translate styles  */
 #goog-gt-tt {display:none !important;}
 .goog-te-banner-frame {display:none !important;}
 .goog-te-menu-value:hover {text-decoration:none !important;}
 body {top:0 !important;}
 #google_translate_element2 {display:none!important;}
+
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 700px;
+    background-color: black;
+    color: #fff;
+    text-align: left;
+    padding: 5px 0;
+    border-radius: 6px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    top: 100%;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+	-webkit-transition-delay: 750ms; /* Safari */
+    transition-delay: 750ms;
+
+}

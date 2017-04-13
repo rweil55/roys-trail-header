@@ -1,4 +1,5 @@
 <?php
+	header('Access-Control-Allow-Origin: *'); 
 @ini_set( 'upload_max_size', '64M' );
 /**
  * The Header template for our theme
@@ -35,6 +36,7 @@
  */
 ?>
 <!DOCTYPE html >
+
 <!--[if IE 7]>
 <html class="ie ie7" <?php language_attributes(); ?>>
 <![endif]-->
@@ -49,30 +51,16 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width">
 	<title><?php wp_title( '|', true, 'right' ); ?></title>
-	<link rel="profile" href="http://gmpg.org/xfn/11">
+<!--	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
-
+-->
 	<!--[if lt IE 9]>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
 	<![endif]-->
+<?PHP
+	
+	wp_head();  ?>
 
-	<?php
-	// determine if this site will me displaying the freewheeling easy map
-	$rrw_trail_pluginDir = WP_CONTENT_DIR . "/plugins/freewheelingeasymap";
-	if ( is_dir( $rrw_trail_pluginDir ) ) {
-		// will do map display, so include some javascript
-		print "
-<script type='text/javascript' 
-    src='https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyBsapjBVkpVG7skmQo62Iu_BVE977Oan24'></script>
-<script type='text/javascript' 
-    src='/wp-content/plugins/freewheelingeasymap/freewheelingeasy_map.js' > </script>
-<script type='text/javascript' 
-    src='/wp-content/plugins/freewheelingeasymap/markercluster.js' > </script>
-	";
-	}
-	wp_head();
-
-	?>
 </head>
 
 <body <?php body_class(); ?>>
@@ -82,23 +70,18 @@
 			<a class="screen-reader-text skip-link" href="#content" title="<?php esc_attr_e( 'Skip to content', 'twentythirteen' ); ?>">			
 <?php _e( 'Skip to content', 'twentythirteen' );	
 print "</a>\n";
-$browser = $_SERVER['HTTP_USER_AGENT'];
-if (strpos($browser, "Mobile") > 0 )
+	
+if ( strpos(get_permalink(), "wayback") < 1 )
 {
-    $desktop = false;
-    $mobile = true;
-}else {
-    $desktop = true;
-    $mobile = false;
-}	
-    print '<table style="min-height: 30px; border:2px" role="presentation" 
+
+    print '<table id="mastheadPhotos" style="min-height: 30px; border:2px" role="presentation" 
 			title="used for layout of the top header" >
 					<tr>
 ';
 	$image = get_header_image();
 	$siteUrl = site_url();
 	$homeName = esc_attr( get_bloginfo( 'name', 'display' ) );
-	if ( $desktop ) {
+
 		print "
 		<td>&nbsp;</td><td>
 		<a class='home-link' href='$siteUrl' title='$homeName' rel='home'>
@@ -106,7 +89,7 @@ if (strpos($browser, "Mobile") > 0 )
 				</a>						
 						</td>
 			";
-	}	
+	
 	print "			<td style='text-align:center; border:thin;'>
 				<a class='home-link' href='$siteUrl' title='$homeName' rel='home'>
 					<h1 class='site-title'>$homeName</h1>
@@ -117,7 +100,7 @@ if (strpos($browser, "Mobile") > 0 )
 						</td>
 						<td>
 		";
-	if ( $desktop ) {
+
 	$thumblist = rrw_trail_GetBannerPhotoList(); 
 		if ( !is_array( $thumblist ) ) {
 			print "
@@ -132,10 +115,10 @@ if (strpos($browser, "Mobile") > 0 )
 				</td>
 				";
 		}
-	}
 	print '
               </tr>
 				</table>';
+}
  ?>
 							<!--  ==================================================================================================== nav bar -->
 							<div id="navbar" class="navbar">
@@ -165,7 +148,7 @@ if (strpos($browser, "Mobile") > 0 )
 
 		<!--  ==================================================================================================== main content -->
 		<div id="main" class="site-main">
-			<?PHP
+			<?PHP 
 
 			function rrw_trail_GetBannerPhotoList() {
 				/*	returns a list of files that are in the directory specified by the Settings/Trail Header 
@@ -182,11 +165,18 @@ if (strpos($browser, "Mobile") > 0 )
 				if ( !$dh = opendir( $path ) )
 					return "use WP File Manager to fix<br />/$dir directory<br />
 		<!-- $path --> \n";
+				$title = get_the_title();
+				write_log("Title is $title");
 				$thumbList = array();
 				while ( ( $file = readdir( $dh ) ) !== false ) {
 					$typeOfEntry = filetype( $path . $file );
-					if ( strcmp( $typeOfEntry, "file" ) == 0 )
-						$thumbList[] = $pathArray[ "baseurl" ] . "/$dir/$file";
+					if ( strcmp( $typeOfEntry, "file" ) == 0 ){
+						$filename = substr($file,0, -4);	//	skip .jpg or .png
+						if (strcmp("$filename", $title) == 0){
+							return array($pathArray[ "baseurl" ] . "$dir$file");
+						}
+						$thumbList[] = $pathArray[ "baseurl" ] . "$dir$file";
+					}
 				}
 				closedir( $dh );
 

@@ -1,4 +1,7 @@
 <?PHP
+
+require_once "functionsRweil_inc.php";
+
 //	*******************************  Function to add more icons to the page editor page
 add_filter( 'tiny_mce_before_init', 'rrw_trail_myformatTinyMCE' );
 
@@ -23,10 +26,69 @@ function wpb_sender_name( $original_email_from ) {
 // 	*******************************  check for updates to the roys-trail-header theme
 require 'theme_update_check.php';
 $MyUpdateChecker = new ThemeUpdateChecker(
-	'roys-trail-header',
-	'https://kernl.us/api/v1/theme-updates/581b74d414f158048efcf64c/'
+    'roys-trail-header', 'http://pluginserver.royweil.com/roys-trail-header.php'
+  //  'https://kernl.us/api/v1/theme-updates/58324bb2bdf1417153c8e59e/'
 );
-// $MyUpdateChecker->purchaseCode = "somePurchaseCode";  <---- Optional!
+
+
+//  *******************************  hide a photo if this is a mobile/phone device
+
+function rrw_if_phone_hide_photo ($att = array())
+{
+	if (array_key_exists("item", $att))
+		$msg = $att["item"];
+	else
+		$msg = "";
+	$browser = $_SERVER['HTTP_USER_AGENT'];
+	if (strpos($browser, "Mobile") > 0 )
+	{
+		$desktop = false;
+		$mobile = true;
+	}else {
+		$desktop = true;
+		$mobile = false;
+	}	
+	if ($desktop)
+		return $msg;
+	else
+		return "";
+}
+
+add_shortcode("ifphonehide", "rrw_if_phone_hide_photo");
+
+
+function rrw_trail_display_doc(){
+	global $eol;
+	$msg = "";
+	$docName = $_GET["docname"];
+	if (empty($docName))
+		return "Missing paramater";
+	$url = "http://demo1.royweil.com/wp-content/uploads/2016/12/$docName";
+	$url=urldecode($docName);
+	$msg .= "$url$eol";
+	
+	$msg .= do_shortcode('[embeddoc url="' . $url . '" download="all"]');
+	return $msg;
+}
+
+function rrw_trail_display_doc_button($atts) {
+	
+	$msg = "";
+	extract( shortcode_atts( array(
+        'pagename' => 'displaydoc',		// psge that gets called - should have a sortcode of [displacdoc]
+		'docname' =>'',			// document that gets displayed
+		'pagetitle' =>''
+        ), $atts ) );
+	if (empty($pagetitle))
+		$pagetitle = $docname;
+	if (empty($docname))
+		return "missing docname parameter<br />\n";
+	$msg .= '<form action="http://demo1.royweil.com/' . $pagename . '"><input type="hidden" name="docname" value="' . $docname . '" ><input type="submit" value="' . $pagetitle . '" /></form>';
+	return $msg;
+}
+
+add_shortcode("Display-Doc", "rrw_trail_display_doc");
+add_shortcode("Display-Doc-button", "rrw_trail_display_doc_button");
 
 //	******************************* fix WP File Manger to look at just upload
 $rrw_trail_dirs = array( "file-manager/file-manager.php", "wp-file-manager/file_folder_manager.php" );
